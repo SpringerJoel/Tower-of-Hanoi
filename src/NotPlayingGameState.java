@@ -1,4 +1,7 @@
 public class NotPlayingGameState extends GameState {
+    final private String NEW_GAME_STRING = "N";
+    final private String QUIT_STRING = "Q";
+
     public NotPlayingGameState(Game game) {
         super(game);
     }
@@ -6,10 +9,10 @@ public class NotPlayingGameState extends GameState {
     @Override
     public void handleInput(String input) {
         switch(input) {
-            case "N":
+            case NEW_GAME_STRING:
                 game.setGameState(new CreatingGameState(game));
                 break;
-            case "Q":
+            case QUIT_STRING:
                 game.quit();
                 break;
             default:
@@ -20,7 +23,7 @@ public class NotPlayingGameState extends GameState {
 
     @Override
     public void gameStateInstructions() {
-        System.out.println(("Type N for new game."));
-        System.out.println(("Type Q to quit."));
+        System.out.println(String.format("Type %s for new game.", NEW_GAME_STRING));
+        System.out.println(String.format("Type %s to quit.", QUIT_STRING));
     }
 }

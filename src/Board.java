@@ -1,3 +1,7 @@
+import GameExceptions.BadInputException;
+import GameExceptions.EmptyStickException;
+import GameExceptions.RingSizeException;
+
 public class Board {
     private Stick left;
     private Stick middle;
@@ -21,13 +25,17 @@ public class Board {
         right.clearRingStack();
     }
 
-    public void moveRing(String fromStickName, String toStickName) {
-        try {
-            Stick FromStick = stringToStick(fromStickName);
-            Stick toStick = stringToStick(toStickName);
-            // TODO
-        } catch (Exception e) {
+    public void moveRing(String fromStickName, String toStickName) throws Exception {
+        Stick fromStick = stringToStick(fromStickName);
+        Stick toStick = stringToStick(toStickName);
+        // check if move is possible
+        if (fromStick.isEmpty()) {
+            throw new EmptyStickException();
         }
+        if (!toStick.isEmpty() && (fromStick.topRingLargerThan(toStick)) ) {
+            throw new RingSizeException();
+        }
+        toStick.pushRing(fromStick.popRing());
     }
 
     private Stick stringToStick(String stickName) throws Exception {
@@ -39,7 +47,7 @@ public class Board {
             case "R":
                 return right;
             default:
-                throw new Exception();
+                throw new BadInputException();
         }
     }
 
@@ -50,15 +58,12 @@ public class Board {
         int maxRings = mostRings(lRings, mRings, rRings);
 
         System.out.print("L ");
-        printNSpaces((maxRings-lRings)*2);
         left.printStick();
 
         System.out.print("M ");
-        printNSpaces((maxRings-mRings)*2);
         middle.printStick();
 
         System.out.print("R ");
-        printNSpaces((maxRings-rRings)*2);
         right.printStick();
     }
 
@@ -82,5 +87,9 @@ public class Board {
                 return numRings3;
             }
         }
+    }
+
+    public boolean inFinishedPosition() {
+        return left.isEmpty() && middle.isEmpty();
     }
 }

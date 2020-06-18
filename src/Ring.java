@@ -12,4 +12,8 @@ public class Ring {
     public String toString() {
         return String.format(Integer.toString(size));
     }
+
+    public Boolean isLargerThan(Ring ring) {
+        return this.getSize() > ring.getSize();
+    }
 }

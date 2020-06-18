@@ -26,6 +26,9 @@ public class Game {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+        if (gameState instanceof StartedGameState) {
+            printBoard();
+        }
         gameState.gameStateInstructions();
     }
 
@@ -44,10 +47,18 @@ public class Game {
     }
 
     public void moveRing(String fromStick, String toStick) {
-        board.moveRing(fromStick, toStick);
+        try {
+            board.moveRing(fromStick, toStick);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void printBoard() {
         board.print();
+    }
+
+    public boolean isWon() {
+        return board.inFinishedPosition();
     }
 }

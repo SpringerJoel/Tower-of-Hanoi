@@ -1,4 +1,6 @@
 public class CreatingGameState extends GameState {
+    final private String QUIT_STRING = "Q";
+
     public CreatingGameState(Game game) {
         super(game);
     }
@@ -12,7 +14,7 @@ public class CreatingGameState extends GameState {
             game.setGameState(new StartedGameState(game));
         } catch (NumberFormatException nfe) {
             switch(input) {
-                case "Q":
+                case QUIT_STRING:
                     game.setGameState(new NotPlayingGameState(game));
                     break;
                 default:
@@ -23,7 +25,7 @@ public class CreatingGameState extends GameState {
 
     @Override
     public void gameStateInstructions() {
-        System.out.println(("Type number for size of rings on board."));
-        System.out.println(("Type Q to quit making game."));
+        System.out.println("Input number to start a game with that many rings.");
+        System.out.println(String.format("Type %s to quit making game.", QUIT_STRING));
     }
 }
