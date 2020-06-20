@@ -2,6 +2,7 @@ public class StartedGameState extends GameState {
     final private String HELP_STRING = "?";
     final private String QUIT_STRING = "Q";
     final private String PRINT_BOARD_STRING = "P";
+    final private String RESET_STRING = "R";
 
     public StartedGameState(Game game) {
         super(game);
@@ -12,6 +13,9 @@ public class StartedGameState extends GameState {
         switch(input) {
             case HELP_STRING:
                 gameStateInstructions();
+                break;
+            case RESET_STRING:
+                game.reset_board();
                 break;
             case QUIT_STRING:
                 game.quitGame();
@@ -44,6 +48,7 @@ public class StartedGameState extends GameState {
         System.out.println("The game is won when all rings are on the right stack.");
         System.out.println(String.format("Type %s to quit game.", QUIT_STRING));
         System.out.println(String.format("Type %s to print board.", PRINT_BOARD_STRING));
+        System.out.println(String.format("Type %s to reset board.", RESET_STRING));
         System.out.println(String.format("Type %s at any time for help.", HELP_STRING));
     }
 }

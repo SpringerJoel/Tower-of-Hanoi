@@ -61,4 +61,10 @@ public class Game {
     public boolean isWon() {
         return board.inFinishedPosition();
     }
+
+    public void reset_board() {
+        board = new Board();
+        board.addRings(numRings);
+        board.print();
+    }
 }
