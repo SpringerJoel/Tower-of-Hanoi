@@ -1,10 +1,12 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Game {
     static boolean gameRunning = true;
     private GameState gameState;
     private Board board;
     private int numRings;
+    private MoveHistory moveHistory;
 
     public Game() {
         this.board = new Board();
@@ -46,11 +48,17 @@ public class Game {
         board.removeRings();
     }
 
-    public void moveRing(String fromStick, String toStick) {
+    public void moveRing(String moveString) {
+        Move newMove = new Move(board, moveString);
         try {
-            board.moveRing(fromStick, toStick);
+            board.moveRing(newMove);
+            moveHistory.pushMove(newMove);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        printBoard();
+        if (isWon()) {
+            setGameState(new WonGameState(this));
         }
     }
 

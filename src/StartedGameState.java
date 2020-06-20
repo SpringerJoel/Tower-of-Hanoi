@@ -23,20 +23,10 @@ public class StartedGameState extends GameState {
             case PRINT_BOARD_STRING:
                 game.printBoard();
                 break;
-            case "L M":
-            case "L R":
-            case "M L":
-            case "M R":
-            case "R L":
-            case "R M":
-                String[] sticks = input.split(" ");
-                game.moveRing(sticks[0], sticks[1]);
-                game.printBoard();
-                if (game.isWon()) {
-                    game.setGameState(new WonGameState(game));
-                }
-                break;
             default:
+                if (Move.isValidMoveString(input)) {
+                    game.moveRing(input);
+                }
                 System.out.println(String.format("Invalid input. Type %s for help.", HELP_STRING));
         }
     }

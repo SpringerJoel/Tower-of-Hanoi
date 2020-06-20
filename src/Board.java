@@ -13,6 +13,18 @@ public class Board {
         this.right = new Stick();
     }
 
+    public Stick getLeft() {
+        return left;
+    }
+
+    public Stick getMiddle() {
+        return middle;
+    }
+
+    public Stick getRight() {
+        return right;
+    }
+
     public void addRings(int numRings) {
         for (int i = numRings; i > 0; i--) {
             left.stackRing(new Ring(i));
@@ -25,30 +37,17 @@ public class Board {
         right.clearRingStack();
     }
 
-    public void moveRing(String fromStickName, String toStickName) throws Exception {
-        Stick fromStick = stringToStick(fromStickName);
-        Stick toStick = stringToStick(toStickName);
+    public void moveRing(Move move) throws Exception {
+        Stick stickFrom = move.getFrom();
+        Stick stickTo = move.getTo();
         // check if move is possible
-        if (fromStick.isEmpty()) {
+        if (stickFrom.isEmpty()) {
             throw new EmptyStickException();
         }
-        if (!toStick.isEmpty() && (fromStick.topRingLargerThan(toStick)) ) {
+        if (!stickTo.isEmpty() && (stickFrom.topRingLargerThan(stickTo)) ) {
             throw new RingSizeException();
         }
-        toStick.pushRing(fromStick.popRing());
-    }
-
-    private Stick stringToStick(String stickName) throws Exception {
-        switch(stickName) {
-            case "L":
-                return left;
-            case "M":
-                return middle;
-            case "R":
-                return right;
-            default:
-                throw new BadInputException();
-        }
+        stickTo.pushRing(stickFrom.popRing());
     }
 
     public void print() {
