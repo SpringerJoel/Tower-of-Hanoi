@@ -34,6 +34,7 @@ public class CreatingGameState extends GameState {
     @Override
     public void gameStateInstructions() {
         System.out.println("Input number (> 0) to start a game with that many rings.");
+        System.out.println("3 is recommended for beginners.");
         System.out.println(String.format("Type %s to quit making game.", QUIT_STRING));
     }
 }

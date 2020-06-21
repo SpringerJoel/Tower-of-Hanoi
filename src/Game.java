@@ -72,7 +72,7 @@ public class Game {
 
     public void resetBoard() {
         board = new Board();
-        board.addRings(numRings);
+        setNumRings(numRings);
         board.print();
     }
 
