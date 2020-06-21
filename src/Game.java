@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.function.Function;
 
 public class Game {
     static boolean gameRunning = true;
@@ -86,5 +87,21 @@ public class Game {
 
     public void hintMove() {
         board.hintMove(solver.bestNextMove());
+        printBoard();
+        if (isWon()) {
+            setGameState(new WonGameState(this));
+        }
+    }
+
+    public void completeBoard() {
+        while (! isWon()) {
+            board.hintMove(solver.bestNextMove());
+            printBoard();
+            try {
+                Thread.sleep(500);
+            } catch (Exception e) {
+            }
+        }
+        setGameState(new WonGameState(this));
     }
 }

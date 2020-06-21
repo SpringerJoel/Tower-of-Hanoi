@@ -5,6 +5,7 @@ public class StartedGameState extends GameState {
     final private String RESET_STRING = "R";
     final private String UNDO_STRING = "U";
     final private String HINT_STRING = "H";
+    final private String SOLVE_STRING = "S";
 
     public StartedGameState(Game game) {
         super(game);
@@ -24,6 +25,9 @@ public class StartedGameState extends GameState {
                 break;
             case HINT_STRING:
                 game.hintMove();
+                break;
+            case SOLVE_STRING:
+                game.completeBoard();
                 break;
             case QUIT_STRING:
                 game.quitGame();
@@ -50,6 +54,7 @@ public class StartedGameState extends GameState {
         System.out.println(String.format("Type %s to reset board.", RESET_STRING));
         System.out.println(String.format("Type %s to undo last move.", UNDO_STRING));
         System.out.println(String.format("Type %s for a hint.", HINT_STRING));
+        System.out.println(String.format("Type %s to see the solution.", SOLVE_STRING));
         System.out.println(String.format("Type %s at any time for help.", HELP_STRING));
     }
 }

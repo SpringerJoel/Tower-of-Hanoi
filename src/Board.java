@@ -87,6 +87,8 @@ public class Board {
     }
 
     public void print() {
+        System.out.println();
+
         System.out.print("L ");
         left.printStick();
 
