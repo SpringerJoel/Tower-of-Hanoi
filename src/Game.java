@@ -6,7 +6,6 @@ public class Game {
     private GameState gameState;
     private Board board;
     private int numRings;
-    private MoveHistory moveHistory;
 
     public Game() {
         this.board = new Board();
@@ -28,10 +27,10 @@ public class Game {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+        gameState.gameStateInstructions();
         if (gameState instanceof StartedGameState) {
             printBoard();
         }
-        gameState.gameStateInstructions();
     }
 
     public void quit() {
@@ -52,7 +51,6 @@ public class Game {
         Move newMove = new Move(board, moveString);
         try {
             board.moveRing(newMove);
-            moveHistory.pushMove(newMove);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,9 +68,18 @@ public class Game {
         return board.inFinishedPosition();
     }
 
-    public void reset_board() {
+    public void resetBoard() {
         board = new Board();
         board.addRings(numRings);
         board.print();
+    }
+
+    public void clearBoard() {
+        board = new Board();
+    }
+
+    public void undoLastMove() {
+        board.undoLastMove();
+        printBoard();
     }
 }

@@ -10,6 +10,7 @@ public class WonGameState extends GameState {
     public void handleInput(String input) {
         switch(input) {
             case NEW_GAME_STRING:
+                game.clearBoard();
                 game.setGameState(new CreatingGameState(game));
                 break;
             case QUIT_STRING:

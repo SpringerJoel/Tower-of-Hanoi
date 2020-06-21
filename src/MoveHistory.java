@@ -19,4 +19,8 @@ public class MoveHistory {
     public void printMoveHistory() {
         System.out.println(Arrays.toString(moves.toArray()));
     }
+
+    public boolean isEmpty() {
+        return moves.isEmpty();
+    }
 }
