@@ -6,6 +6,7 @@ public class Game {
     private GameState gameState;
     private Board board;
     private int numRings;
+    private Solver solver;
 
     public Game() {
         this.board = new Board();
@@ -40,6 +41,7 @@ public class Game {
     public void setNumRings(int numRings) {
         this.numRings = numRings;
         board.addRings(numRings);
+        this.solver = new Solver(board, numRings);
     }
 
     public void quitGame() {
