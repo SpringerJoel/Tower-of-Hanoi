@@ -7,6 +7,7 @@ public class Board {
     private Stick left;
     private Stick middle;
     private Stick right;
+    private int numRings;
     private MoveHistory moveHistory;
 
     public Board() {
@@ -14,6 +15,7 @@ public class Board {
         this.middle = new Stick();
         this.right = new Stick();
         this.moveHistory = new MoveHistory();
+        this.numRings = 0;
     }
 
     public Stick getLeft() {
@@ -28,30 +30,60 @@ public class Board {
         return right;
     }
 
+    public int getNumRings() {
+        return numRings;
+    }
+
     public void addRings(int numRings) {
         for (int i = numRings; i > 0; i--) {
             left.stackRing(new Ring(i));
         }
+        this.numRings = numRings;
     }
 
     public void removeRings() {
         left.clearRingStack();
         middle.clearRingStack();
         right.clearRingStack();
+        this.numRings = 0;
     }
 
-    public void moveRing(Move move) throws Exception {
-        Stick stickFrom = move.getFrom();
-        Stick stickTo = move.getTo();
+    public void moveRing(String moveString) throws Exception {
+        String[] position = moveString.split(" ");
+        Stick fromStick = null;
+        Stick toStick = null;
+        switch (position[0]) {
+            case "L":
+                fromStick = left;
+                break;
+            case "M":
+                fromStick = middle;
+                break;
+            case "R":
+                fromStick = right;
+                break;
+        }
+        switch (position[1]) {
+            case "L":
+                toStick = left;
+                break;
+            case "M":
+                toStick = middle;
+                break;
+            case "R":
+                toStick = right;
+                break;
+        }
         // check if move is possible
-        if (stickFrom.isEmpty()) {
+        if (fromStick.isEmpty()) {
             throw new EmptyStickException();
         }
-        if (!stickTo.isEmpty() && (stickFrom.topRingLargerThan(stickTo)) ) {
+        if (!toStick.isEmpty() && (fromStick.topRingLargerThan(toStick)) ) {
             throw new RingSizeException();
         }
-        stickTo.pushRing(stickFrom.popRing());
-        moveHistory.pushMove(move);
+        toStick.pushRing(fromStick.popRing());
+        Move newMove = new Move(fromStick, toStick);
+        moveHistory.pushMove(newMove);
     }
 
     public void print() {
@@ -82,5 +114,12 @@ public class Board {
         } catch (EmptyHistoryException e) {
             System.out.println("There is no last move to undo.");
         }
+    }
+
+    public void hintMove(Move bestNextMove) {
+        Stick fromStick = bestNextMove.getFrom();
+        Stick toStick = bestNextMove.getTo();
+        toStick.pushRing(fromStick.popRing());
+        moveHistory.pushMove(bestNextMove);
     }
 }

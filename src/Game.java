@@ -41,7 +41,7 @@ public class Game {
     public void setNumRings(int numRings) {
         this.numRings = numRings;
         board.addRings(numRings);
-        this.solver = new Solver(board, numRings);
+        this.solver = new Solver(board);
     }
 
     public void quitGame() {
@@ -50,9 +50,8 @@ public class Game {
     }
 
     public void moveRing(String moveString) {
-        Move newMove = new Move(board, moveString);
         try {
-            board.moveRing(newMove);
+            board.moveRing(moveString);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -83,5 +82,9 @@ public class Game {
     public void undoLastMove() {
         board.undoLastMove();
         printBoard();
+    }
+
+    public void hintMove() {
+        board.hintMove(solver.bestNextMove());
     }
 }

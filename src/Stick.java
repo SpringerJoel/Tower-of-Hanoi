@@ -48,4 +48,12 @@ public class Stick {
     public void pushRing(Ring newRing) {
         ringStack.push(newRing);
     }
+
+    public boolean contains(Ring largestRing) {
+        return ringStack.contains(largestRing);
+    }
+
+    public Ring peekRing() {
+        return ringStack.peek();
+    }
 }

@@ -19,30 +19,9 @@ public class Move {
         return true;
     }
 
-    public Move (Board board, String moveString) {
-        String[] position = moveString.split(" ");
-        switch (position[0]) {
-            case "L":
-                this.from = board.getLeft();
-                break;
-            case "M":
-                this.from = board.getMiddle();
-                break;
-            case "R":
-                this.from = board.getRight();
-                break;
-        }
-        switch (position[1]) {
-            case "L":
-                this.to = board.getLeft();
-                break;
-            case "M":
-                this.to = board.getMiddle();
-                break;
-            case "R":
-                this.to = board.getRight();
-                break;
-        }
+    public Move (Stick from, Stick to) {
+        this.from = from;
+        this.to = to;
     }
 
     public Stick getFrom() {
