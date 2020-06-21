@@ -1,6 +1,4 @@
 import java.util.Scanner;
-import java.util.Stack;
-import java.util.function.Function;
 
 public class Game {
     static boolean gameRunning = true;

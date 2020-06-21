@@ -1,4 +1,3 @@
-import GameExceptions.BadInputException;
 import GameExceptions.EmptyHistoryException;
 import GameExceptions.EmptyStickException;
 import GameExceptions.RingSizeException;
